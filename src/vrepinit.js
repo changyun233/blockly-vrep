@@ -41,7 +41,7 @@ Blockly.Python['vrepinitial'] = function(block) {
   var final4='res, value_jointarray[3] = vrep.simxGetObjectHandle(clientID, \'Robot_joint4\', vrep.simx_opmode_blocking)';
   return initialo+'\n'+code+'\n'+final1+'\n'+final2+'\n'+final3+'\n'+final4;
 };
-Blockly.Blocks['vrepinitial'] = {
+Blockly.Blocks['vreptest'] = {
   init: function() {
     this.appendValueInput("serverip")
         .setCheck("String")
@@ -66,7 +66,7 @@ Blockly.Blocks['vrepinitial'] = {
  this.setHelpUrl("");
   }
 };
-Blockly.Python['vrepinitial'] = function(block) {
+Blockly.Python['vreptest'] = function(block) {
   var text_ip = block.getFieldValue('ip');
   var value_serverip = Blockly.Python.valueToCode(block, 'serverip', Blockly.Python.ORDER_ATOMIC);
   var text_port = block.getFieldValue('port');
