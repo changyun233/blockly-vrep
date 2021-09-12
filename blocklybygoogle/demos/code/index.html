@@ -14,6 +14,7 @@
   <script src="../../php_compressed.js"></script>
   <script src="../../lua_compressed.js"></script>
   <script src="../../dart_compressed.js"></script>
+  <script src="../../../src/vrepinit.js"></script>
   <script src="code.js"></script>
 </head>
 <body>
@@ -80,6 +81,9 @@
   <textarea id="content_xml" class="content" wrap="off"></textarea>
 
   <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+    <category name="VREP" colour="%{BKY_LOGIC_HUE}">
+      <block type="vrepinitial"></block>
+    </category>
     <category name="%{BKY_CATLOGIC}" colour="%{BKY_LOGIC_HUE}">
       <block type="controls_if"></block>
       <block type="logic_compare"></block>
