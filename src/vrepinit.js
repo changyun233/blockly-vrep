@@ -91,7 +91,7 @@ Blockly.Python['forwardkinematics'] = function (block) {
   var value_inputc = Blockly.Python.valueToCode(block, 'inputC', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
   var functionFor = Blockly.Python.provideFunction_(
-    'Vrepforwardkinematics',
+    'functionFor',
     [
       'def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '(rads1,rads2,rads3):',
       '  arm_r = r1 + l2 * cos(rads2 + theta2) + l3 * cos(rads2 + rads3 + theta3) + r4',
@@ -129,7 +129,7 @@ Blockly.Python['inversekinematics'] = function (block) {
   var value_inputb = Blockly.Python.valueToCode(block, 'inputB', Blockly.Python.ORDER_ATOMIC);
   var value_inputc = Blockly.Python.valueToCode(block, 'inputC', Blockly.Python.ORDER_ATOMIC);
   var functionInv = Blockly.Python.provideFunction_(
-    'Vrepinversekinematics',
+    'functionInv',
     [
       'def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '(x,y,z):',
       '  rad1=round(atan2(y,x),4)',
@@ -169,8 +169,8 @@ Blockly.Blocks['setJointRad'] = {
       .setAlign(Blockly.ALIGN_RIGHT)
       .appendField(new Blockly.FieldLabelSerializable("Jointhandles"), "jh");
     this.setInputsInline(false);
-    this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
+    this.setPreviousStatement(true, null);
     this.setColour(230);
     this.setTooltip("setJointRad");
     this.setHelpUrl("");
@@ -181,17 +181,13 @@ Blockly.Python['setJointRad'] = function (block) {
   var value_inputa = Blockly.Python.valueToCode(block, 'inputA', Blockly.Python.ORDER_ATOMIC);
   var value_inputb = Blockly.Python.valueToCode(block, 'inputB', Blockly.Python.ORDER_ATOMIC);
   var value_inputc = Blockly.Python.valueToCode(block, 'inputC', Blockly.Python.ORDER_ATOMIC);
-  //var value_client = Blockly.Python.valueToCode(block, 'client', Blockly.Python.ORDER_ATOMIC);
+  var value_client = Blockly.Python.valueToCode(block, 'client', Blockly.Python.ORDER_ATOMIC);
   var value_Jointhandles = Blockly.Python.valueToCode(block, 'Jointhandles', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  var functionSJR = Blockly.Python.provideFunction_(
-    'setJointRad',
-    [
-      'def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '(rads1,rads2,rads3):',
-      '  vrep.simxSetJointTargetPosition(clientID, value_Jointhandles[0], rads1, vrep.simx_opmode_oneshot)',
-      '  vrep.simxSetJointTargetPosition(clientID, value_Jointhandles[0], rads2, vrep.simx_opmode_oneshot)',
-      '  vrep.simxSetJointTargetPosition(clientID, value_Jointhandles[0], rads3, vrep.simx_opmode_oneshot)',
-      '  vrep.simxSetJointTargetPosition(clientID, value_Jointhandles[0], -rads2-rads3, vrep.simx_opmode_oneshot)']);
-  var code = functionSJR + '(' + value_inputa + ',' + value_inputb + ',' + value_inputc + ')';
-  return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  var functionSJR = '\n';
+  var functionSJR =functionSJR+'vrep.simxSetJointTargetPosition('+value_client+', '+value_inputa+' , vrep.simx_opmode_oneshot)\n';
+  var functionSJR =functionSJR+'vrep.simxSetJointTargetPosition('+value_client+', '+value_inputb+' , vrep.simx_opmode_oneshot)\n';
+  var functionSJR =functionSJR+'vrep.simxSetJointTargetPosition('+value_client+', '+value_inputc+' , vrep.simx_opmode_oneshot)\n';
+  var functionSJR =functionSJR+'vrep.simxSetJointTargetPosition('+value_client+', -'+value_inputa+'-'+value_inputc+' , vrep.simx_opmode_oneshot)\n';
+  return functionSJR;
 };
